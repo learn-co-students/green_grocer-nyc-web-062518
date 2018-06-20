@@ -1,0 +1,41 @@
+#apply_coupons
+
+Coupons: One, Multiple & None:
+One:
+This is the cart: {"AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>2}}
+This is the coupons: [{:item=>"AVOCADO", :num=>2, :cost=>5.0}]
+    adds a new key, value pair to the cart hash called 'ITEM NAME W/COUPON'
+This is the cart: {"AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>2}}
+This is the coupons: [{:item=>"AVOCADO", :num=>2, :cost=>5.0}]
+    adds the coupon price to the property hash of couponed item
+Multiple:
+This is the cart: {"CHEESE"=>{:price=>6.5, :clearance=>false, :count=>4}, "AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>3}}
+This is the coupons: [{:item=>"AVOCADO", :num=>2, :cost=>5.0}, {:item=>"CHEESE", :num=>3, :cost=>15.0}]
+    can apply multiple coupons
+None:
+This is the cart: {"CHEESE"=>{:price=>6.5, :clearance=>false, :count=>2}}
+This is the coupons: []
+    doesn't break if there is no coupon
+
+Cart:
+This is the cart: {"AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>2}}
+This is the coupons: [{:item=>"AVOCADO", :num=>2, :cost=>5.0}]
+    adds the count number to the property hash of couponed item
+This is the cart: {"AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>2}}
+This is the coupons: [{:item=>"AVOCADO", :num=>2, :cost=>5.0}]
+    removes the number of discounted items from the original item's count
+This is the cart: {"AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>2}}
+This is the coupons: [{:item=>"AVOCADO", :num=>2, :cost=>5.0}]
+    remembers if the item was on clearance
+
+more advanced cases:
+This is the cart: {"CHEESE"=>{:price=>6.5, :clearance=>false, :count=>5}}
+This is the coupons: [{:item=>"CHEESE", :num=>3, :cost=>15.0}]
+    accounts for when there are more items than the coupon allows
+This is the cart: {"CHEESE"=>{:price=>6.5, :clearance=>false, :count=>2}}
+This is the coupons: [{:item=>"AVOCADO", :num=>2, :cost=>5.0}]
+    doesn't break if the coupon doesn't apply to any items
+
+This is the cart: {"AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>5}}
+This is the coupons: [{:item=>"AVOCADO", :num=>2, :cost=>5.0}, {:item=>"AVOCADO", :num=>2, :cost=>5.0}]
+    can increment coupon count if two are applied
